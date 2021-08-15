@@ -3,27 +3,22 @@ module github.com/izzatzr/devk
 go 1.16
 
 require (
-	cloud.google.com/go v0.36.0 // indirect
 	github.com/evanphx/json-patch v4.5.0+incompatible // indirect
 	github.com/fatih/color v1.7.0
 	github.com/go-openapi/spec v0.17.2 // indirect
-	github.com/gogo/protobuf v1.3.0 // indirect
-	github.com/google/gofuzz v1.0.0 // indirect
 	github.com/googleapis/gnostic v0.3.1 // indirect
 	github.com/gregjones/httpcache v0.0.0-20181110185634-c63ab54fda8f // indirect
 	github.com/imdario/mergo v0.3.7 // indirect
-	github.com/json-iterator/go v1.1.6 // indirect
-	github.com/mattn/go-colorable v0.0.9 // indirect
 	github.com/mattn/go-isatty v0.0.7 // indirect
-	github.com/modern-go/reflect2 v1.0.1 // indirect
 	github.com/onsi/ginkgo v1.8.0 // indirect
 	github.com/onsi/gomega v1.5.0 // indirect
 	github.com/peterbourgon/diskv v2.0.1+incompatible // indirect
-	github.com/pkg/errors v0.8.1 // indirect
-	github.com/spf13/cobra v0.0.4
-	github.com/spf13/viper v1.4.0
+	github.com/spf13/cobra v1.2.1
+	github.com/spf13/viper v1.8.1
+	github.com/tj/go-spin v1.1.0
 	golang.org/x/crypto v0.0.0-20210813211128-0a44fdfbc16e
 	golang.org/x/net v0.0.0-20210813160813-60bc85c4be6d // indirect
+	gopkg.in/inf.v0 v0.9.1 // indirect
 	k8s.io/api v0.0.0-20190313235455-40a48860b5ab // indirect
 	k8s.io/apimachinery v0.0.0-20190313205120-d7deff9243b1
 	k8s.io/cli-runtime v0.0.0-20190314001948-2899ed30580f
