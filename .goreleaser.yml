@@ -1,10 +1,10 @@
-project_name: {{ .PluginName }}
+project_name: devk
 release:
   github:
-    owner: {{ .Owner }}
-    name: {{ .Repo }}
+    owner: izzatzr
+    name: devk
 builds:
-  - id: {{ .PluginName }}
+  - id: devk
     goos:
     - linux
     - windows
@@ -17,12 +17,12 @@ builds:
       - GO111MODULE=on
     main: cmd/plugin/main.go
     ldflags: -s -w
-      -X github.com/{{ .Owner }}/{{ .Repo }}/pkg/version.version=
+      -X github.com/izzatzr/devk/pkg/version.version=
 archives:
-  - id: {{ .PluginName }}
+  - id: devk
     builds:
-    - {{ .PluginName }}
-    name_template: {{ `"{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}"` }}
+    - devk
+    name_template: "{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}"
     format_overrides:
     - goos: windows
       format: zip
