@@ -11,7 +11,7 @@ require (
 	github.com/docker/go-connections v0.4.0 // indirect
 	github.com/evanphx/json-patch v4.5.0+incompatible // indirect
 	github.com/fatih/color v1.7.0
-	github.com/genuinetools/reg v0.16.0
+	github.com/genuinetools/reg v0.16.1
 	github.com/gin-gonic/gin v1.4.0
 	github.com/gizak/termui/v3 v3.1.0
 	github.com/google/gofuzz v1.0.0 // indirect
