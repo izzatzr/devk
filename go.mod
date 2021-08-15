@@ -20,8 +20,9 @@ require (
 	github.com/onsi/gomega v1.5.0 // indirect
 	github.com/peterbourgon/diskv v2.0.1+incompatible // indirect
 	github.com/pkg/errors v0.8.1 // indirect
-	github.com/spf13/cobra v0.0.4
+	github.com/spf13/cobra v0.0.7
 	github.com/spf13/viper v1.4.0
+	github.com/tj/go-spin v1.1.0
 	golang.org/x/crypto v0.0.0-20210813211128-0a44fdfbc16e
 	golang.org/x/net v0.0.0-20210813160813-60bc85c4be6d // indirect
 	k8s.io/api v0.0.0-20190313235455-40a48860b5ab // indirect
