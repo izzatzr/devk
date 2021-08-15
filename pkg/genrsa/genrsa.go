@@ -16,8 +16,8 @@ var (
 	Log = logger.NewLogger()
 )
 
-// GenRSA generate temporary public & private RSA Key
-func GenRSA() (os.File, os.File) {
+// Create generate temporary public & private RSA Key
+func Create() (os.File, os.File) {
 
 	pvKeyFile, err := ioutil.TempFile(os.TempDir(), "*")
 	if err != nil {
