@@ -4,7 +4,7 @@ go 1.16
 
 require (
 	github.com/evanphx/json-patch v4.5.0+incompatible // indirect
-	github.com/fatih/color v1.7.0
+	github.com/fatih/color v1.12.0
 	github.com/go-openapi/spec v0.17.2 // indirect
 	github.com/googleapis/gnostic v0.3.1 // indirect
 	github.com/gregjones/httpcache v0.0.0-20181110185634-c63ab54fda8f // indirect
