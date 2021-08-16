@@ -20,7 +20,7 @@ require (
 	golang.org/x/crypto v0.0.0-20210813211128-0a44fdfbc16e
 	golang.org/x/net v0.0.0-20210813160813-60bc85c4be6d // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
-	k8s.io/api v0.0.0-20190313235455-40a48860b5ab
+	k8s.io/api v0.22.0
 	k8s.io/apimachinery v0.0.0-20190313205120-d7deff9243b1
 	k8s.io/cli-runtime v0.0.0-20190314001948-2899ed30580f
 	k8s.io/client-go/v12 v12.0.0
