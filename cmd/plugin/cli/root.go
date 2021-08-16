@@ -1,22 +1,26 @@
 package cli
 
 import (
-	"errors"
 	"fmt"
 	"os"
 	"strings"
-	"time"
 
+	"github.com/izzatzr/devk/pkg/genrsa"
 	"github.com/izzatzr/devk/pkg/logger"
-	"github.com/izzatzr/devk/pkg/plugin"
+
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	"github.com/tj/go-spin"
 	"k8s.io/cli-runtime/pkg/genericclioptions"
+	"k8s.io/client-go/kubernetes"
+
+	// "k8s.io/client-go/kubernetes/typed/apps/v1beta2"
+	v1 "k8s.io/api/core/v1"
 )
 
 var (
 	KubernetesConfigFlags *genericclioptions.ConfigFlags
+	Log                   = logger.NewLogger()
+	img                   string
 )
 
 func RootCmd() *cobra.Command {
@@ -30,41 +34,61 @@ func RootCmd() *cobra.Command {
 			viper.BindPFlags(cmd.Flags())
 		},
 		RunE: func(cmd *cobra.Command, args []string) error {
-			log := logger.NewLogger()
-			log.Info("")
 
-			s := spin.New()
-			finishedCh := make(chan bool, 1)
-			namespaceName := make(chan string, 1)
-			go func() {
-				lastNamespaceName := ""
-				for {
-					select {
-					case <-finishedCh:
-						fmt.Printf("\r")
-						return
-					case n := <-namespaceName:
-						lastNamespaceName = n
-					case <-time.After(time.Millisecond * 100):
-						if lastNamespaceName == "" {
-							fmt.Printf("\r  \033[36mSearching for namespaces\033[m %s", s.Next())
-						} else {
-							fmt.Printf("\r  \033[36mSearching for namespaces\033[m %s (%s)", s.Next(), lastNamespaceName)
-						}
-					}
-				}
-			}()
-			defer func() {
-				finishedCh <- true
-			}()
-
-			if err := plugin.RunPlugin(KubernetesConfigFlags, namespaceName); err != nil {
-				return errors.Unwrap(err)
+			pvKey, pbKey, err := genrsa.Create()
+			if err != nil {
+				return err
 			}
 
-			log.Info("")
+			defer os.Remove(pvKey.Name())
+			defer os.Remove(pbKey.Name())
+
+			cfg, err := KubernetesConfigFlags.ToRESTConfig()
+			if err != nil {
+				return err
+			}
+
+			clientset, err := kubernetes.NewForConfig(cfg)
+			if err != nil {
+				return err
+			}
+
+			_, err = clientset.CoreV1().Pods(*KubernetesConfigFlags.Namespace).Create(
+				&v1.Pod{
+					// ObjectMeta: v1.ObjectMeta,
+					Spec: v1.PodSpec{
+						InitContainers: []v1.Container{{
+							Name:  "seaweedfs",
+							Image: "chrislusf/seaweedfs",
+							Command: []string{
+								"seaweedfs",
+							},
+							Args: []string{
+								"server",
+								"-s3",
+							},
+							Ports: []v1.ContainerPort{{
+								Name:          "server",
+								ContainerPort: 9333,
+							}, {
+								Name:          "volume",
+								ContainerPort: 8080,
+							}}},
+						},
+						Containers: []v1.Container{{
+							Name:  img,
+							Image: img,
+							Stdin: true,
+							TTY:   true,
+						}},
+					},
+				})
+			if err != nil {
+				return err
+			}
 
 			return nil
+
 		},
 	}
 
@@ -73,7 +97,11 @@ func RootCmd() *cobra.Command {
 	KubernetesConfigFlags = genericclioptions.NewConfigFlags(false)
 	KubernetesConfigFlags.AddFlags(cmd.Flags())
 
+	cmd.PersistentFlags().StringVar(&img, "img", "busybox", "image")
+	cmd.MarkFlagRequired("img")
+
 	viper.SetEnvKeyReplacer(strings.NewReplacer("-", "_"))
+
 	return cmd
 }
 
@@ -86,4 +114,15 @@ func InitAndExecute() {
 
 func initConfig() {
 	viper.AutomaticEnv()
+
+}
+
+func homeDir() string {
+	dir, err := os.UserHomeDir()
+	if err != nil {
+		Log.Error(err)
+		os.Exit(1)
+	}
+
+	return dir
 }

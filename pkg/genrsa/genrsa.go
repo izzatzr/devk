@@ -9,6 +9,7 @@ import (
 	"os"
 
 	"github.com/izzatzr/devk/pkg/logger"
+	"github.com/pkg/errors"
 	"golang.org/x/crypto/ssh"
 )
 
@@ -17,37 +18,37 @@ var (
 )
 
 // Create generate temporary public & private RSA Key
-func Create() (os.File, os.File) {
+func Create() (os.File, os.File, error) {
 
 	pvKeyFile, err := ioutil.TempFile(os.TempDir(), "*")
 	if err != nil {
-		exitOnErr(err)
+		return os.File{}, os.File{}, errors.Wrap(err, err.Error())
 	}
 
 	pbKeyFile, err := ioutil.TempFile(os.TempDir(), "*.pub")
 	if err != nil {
-		exitOnErr(err)
+		return os.File{}, os.File{}, errors.Wrap(err, err.Error())
 	}
 
 	key, pvKeyData, err := privateKey()
 	if err != nil {
-		exitOnErr(err)
+		return os.File{}, os.File{}, errors.Wrap(err, err.Error())
 	}
 
 	pbKeyData, err := publicKey(&key.PublicKey)
 	if err != nil {
-		exitOnErr(err)
+		return os.File{}, os.File{}, errors.Wrap(err, err.Error())
 	}
 
 	if err = ioutil.WriteFile(pvKeyFile.Name(), pvKeyData, os.ModePerm); err != nil {
-		exitOnErr(err)
+		return os.File{}, os.File{}, errors.Wrap(err, err.Error())
 	}
 
 	if err = ioutil.WriteFile(pbKeyFile.Name(), pbKeyData, os.ModePerm); err != nil {
-		exitOnErr(err)
+		return os.File{}, os.File{}, errors.Wrap(err, err.Error())
 	}
 
-	return *pvKeyFile, *pbKeyFile
+	return *pvKeyFile, *pbKeyFile, nil
 }
 
 func privateKey() (*rsa.PrivateKey, []byte, error) {
@@ -76,9 +77,4 @@ func publicKey(pvKey *rsa.PublicKey) ([]byte, error) {
 
 func encodePrivateKey(pvKey *rsa.PrivateKey) []byte {
 	return pem.EncodeToMemory(&pem.Block{Bytes: x509.MarshalPKCS1PrivateKey(pvKey)})
-}
-
-func exitOnErr(err error) {
-	Log.Error(err)
-	os.Exit(1)
 }

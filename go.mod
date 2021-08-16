@@ -16,6 +16,7 @@ require (
 	github.com/spf13/cobra v1.2.1
 	github.com/spf13/viper v1.8.1
 	github.com/tj/go-spin v1.1.0
+	github.com/pkg/errors v0.8.1
 	golang.org/x/crypto v0.0.0-20210813211128-0a44fdfbc16e
 	golang.org/x/net v0.0.0-20210813160813-60bc85c4be6d // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
