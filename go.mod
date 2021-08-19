@@ -22,7 +22,7 @@ require (
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	k8s.io/api v0.22.0
 	k8s.io/apimachinery v0.22.0
-	k8s.io/cli-runtime v0.22.0
+	k8s.io/cli-runtime v0.22.1
 	k8s.io/client-go/v12 v12.0.0
 	k8s.io/klog v0.4.0 // indirect
 	k8s.io/kube-openapi v0.0.0-20190816220812-743ec37842bf // indirect
