@@ -1,6 +1,6 @@
 module github.com/izzatzr/devk
 
-go 1.16
+go 1.19
 
 require (
 	github.com/evanphx/json-patch v4.5.0+incompatible // indirect
