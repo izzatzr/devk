@@ -15,7 +15,7 @@ require (
 	github.com/peterbourgon/diskv v2.0.1+incompatible // indirect
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/cobra v1.2.1
-	github.com/spf13/viper v1.9.0
+	github.com/spf13/viper v1.19.0
 	github.com/tj/go-spin v1.1.0
 	golang.org/x/crypto 32db794688a5
 	golang.org/x/net v0.0.0-20210813160813-60bc85c4be6d // indirect
