@@ -14,7 +14,7 @@ require (
 	github.com/onsi/gomega v1.5.0 // indirect
 	github.com/peterbourgon/diskv v2.0.1+incompatible // indirect
 	github.com/pkg/errors v0.9.1
-	github.com/spf13/cobra v1.2.1
+	github.com/spf13/cobra v1.8.1
 	github.com/spf13/viper v1.9.0
 	github.com/tj/go-spin v1.1.0
 	golang.org/x/crypto 32db794688a5
